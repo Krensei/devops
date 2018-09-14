@@ -29,7 +29,7 @@ node {
             } catch(err) {
                 throw err
             } finally {
-                junit '**/target/surefire-reports/TEST-*.xml'
+//                junit '**/target/surefire-reports/TEST-*.xml'
             }
         }
 
@@ -41,7 +41,8 @@ node {
             } finally {
                 junit '**/target/test-results/jest/TESTS-*.xml'
             }
-        }*/
+        } 
+*/
 
         stage('packaging') {
             sh "./mvnw verify -Pprod -DskipTests"
