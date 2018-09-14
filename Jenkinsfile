@@ -22,7 +22,7 @@ node {
         stage('npm install') {
             sh "./mvnw com.github.eirslett:frontend-maven-plugin:npm"
         }
-
+/*
         stage('backend tests') {
             try {
                 sh "./mvnw test"
@@ -41,11 +41,16 @@ node {
             } finally {
                 junit '**/target/test-results/jest/TESTS-*.xml'
             }
-        }
+        }*/
 
         stage('packaging') {
             sh "./mvnw verify -Pprod -DskipTests"
             archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
+        }
+        stage('quality analysis') {
+            withSonarQubeEnv('Sonar') {
+                sh "./mvnw sonar:sonar"
+            }
         }
     }
 
